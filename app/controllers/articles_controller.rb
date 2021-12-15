@@ -43,6 +43,14 @@ class ArticlesController < ApplicationController
     end
   end
 
+  # deletes article
+  def destroy
+    @article = Article.find(params[:id])
+    @article.destroy
+
+    redirect_to root_path
+  end
+
   # user must have a title and body to submit new article
   private
     def article_params
