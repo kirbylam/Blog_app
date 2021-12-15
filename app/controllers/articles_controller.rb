@@ -6,4 +6,26 @@ class ArticlesController < ApplicationController
   def show
     @article = Article.find(params[:id])
   end
+
+  def new
+    @article = Article.new
+  end
+
+  def create
+    @article = Article.new(article_params)
+
+    # if article is saved, page is redirected to new article
+    # else it redisplays the form (to create an article)
+    if @article.save
+      redirect_to @article
+    else
+      render :new
+    end
+  end
+
+  # user must have a title and body to submit new article
+  private
+    def article_params
+      params.require(:article).permit(:title, :body)
+    end
 end
